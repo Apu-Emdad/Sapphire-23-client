@@ -13,27 +13,8 @@ import { themeSettings } from "./theme";
 
 function App() {
   const mode = useSelector((state) => state.mode);
-
-  return (
-    <div className="App">
-      <Router>
-        <Routes>
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/profile/:userId" element={<ProfilePage />} />
-        </Routes>
-      </Router>
-    </div>
-  );
-}
-
-export default App;
-
-/* 
-function App() {
-  const mode = useSelector((state) => state.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
-  const isAuth = Boolean(useSelector((state) => state.token));
+  // const isAuth = Boolean(useSelector((state) => state.token));
   return (
     <div className="App">
       <Router>
@@ -50,4 +31,4 @@ function App() {
   );
 }
 
- */
+export default App;
