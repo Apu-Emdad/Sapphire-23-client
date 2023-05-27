@@ -1,6 +1,6 @@
 import { useTheme } from "@emotion/react";
 import React from "react";
-import LoginForm from "../../components/LoginForm/LoginForm";
+import LoginForm from "../../components/LoginForm/AuthForm";
 import Navbar from "../../components/Navbar/Navbar";
 import { Box, Typography, useMediaQuery } from "@mui/material";
 const LoginPage = () => {
