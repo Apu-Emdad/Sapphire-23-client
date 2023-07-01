@@ -7,6 +7,7 @@ import {
   useMediaQuery,
   Typography,
   useTheme,
+  styled,
 } from "@mui/material";
 import { EditOutlined } from "@mui/icons-material";
 import { useDispatch } from "react-redux";
@@ -17,10 +18,11 @@ import { FlexBetween } from "../FlexBetween";
 
 import { registerSchema } from "../Schema/Schema";
 import { loginScheama } from "../Schema/Schema";
-import { Formik } from "formik";
+import { Form, Formik } from "formik";
 
 const LoginForm = () => {
   const [pageType, setPageType] = useState("register");
+  const [pictureError, setPictureError] = useState("");
   const { palette } = useTheme();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -28,8 +30,42 @@ const LoginForm = () => {
   const isLogin = pageType === "login";
   const isRegister = pageType === "register";
 
+  /* ++++ <SubmitButton> starts++++ */
+  const SubmitButton = styled(Button)(({ theme }) => ({
+    margin: "2rem 0",
+    padding: "1rem",
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.background.alt,
+
+    "&:hover": {
+      color: theme.palette.primary.main,
+    },
+  }));
+  /* ---- <SubmitButton> startsEnds ---- */
+
+  /* ++++ <<AccountQuery> starts> starts++++ */
+  const AccountQuery = styled(Button)(({ theme }) => ({
+    textDecoration: "underline",
+    color: theme.palette.primary.main,
+
+    "&:hover": {
+      cursor: "pointer",
+      color: theme.palette.primary.light,
+    },
+  }));
+  /* ---- <<AccountQuery> starts> startsEnds ---- */
+
   /* ++++ Register data initialization starts ++++ */
   const initialValuesRegister = {
+    firstName: "first",
+    lastName: "last",
+    email: "email@email.com",
+    password: "password",
+    location: "location",
+    occupation: "occupation",
+    picture: "",
+  };
+  /*   const initialValuesRegister = {
     firstName: "",
     lastName: "",
     email: "",
@@ -37,7 +73,7 @@ const LoginForm = () => {
     location: "",
     occupation: "",
     picture: "",
-  };
+  }; */
   /* ---- Register data initialization ends ---- */
 
   /* ++++ Login data initialization starts ++++ */
@@ -83,12 +119,13 @@ const LoginForm = () => {
   };
   /* ---- Handling Login ends ---- */
 
-  /* ++++ Submitting the form Startss ++++  */
+  /* ++++ Submitting the form Starts ++++  */
   const handleFormSubmit = async (values, onSubmitProps) => {
+    console.log(values);
     if (isLogin) await login(values, onSubmitProps);
     if (isRegister) await register(values, onSubmitProps);
   };
-  /* ---- Submitting the form Startss ----  */
+  /* ---- Submitting the form ends ----  */
 
   return (
     <Formik
@@ -102,88 +139,195 @@ const LoginForm = () => {
         touched,
         handleBlur,
         handleChange,
-        handleSubmit,
         setFieldValue,
         resetForm,
-      }) => (
-        <form action="" onSubmit={handleSubmit}>
-          <Box
-            display="grid"
-            gap="30px"
-            gridTemplateColumns="repeat(4, minmax(0,1fr))"
-            sx={{
-              "& > div": { gridColumn: isWideScreen ? undefined : "span 4" },
+        handleSubmit,
+      }) => {
+        return (
+          <form
+            action=""
+            onSubmit={(event) => {
+              event.preventDefault();
+              if (!values.picture) {
+                setPictureError("Please Upload a picture");
+              }
+              handleSubmit();
             }}
           >
-            {isRegister && (
-              <>
-                {/* ++++ First Name ++++ */}
-                <TextField
-                  label="First Name"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.firstName}
-                  name="firstName"
-                  error={
-                    Boolean(touched.firstName) && Boolean(errors.firstName)
-                  }
-                  helperText={touched.firstName && errors.firstName}
-                  sx={{ gridColumn: "span 2" }}
-                />
-                {/* ---- First Name ----  */}
+            <Box
+              display="grid"
+              gap="30px"
+              gridTemplateColumns="repeat(4, minmax(0,1fr))"
+              sx={{
+                "& > div": { gridColumn: isWideScreen ? undefined : "span 4" },
+              }}
+            >
+              {isRegister && (
+                <>
+                  {/* ++++ First Name ++++ */}
+                  <TextField
+                    label="First Name"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.firstName}
+                    name="firstName"
+                    error={
+                      Boolean(touched.firstName) && Boolean(errors.firstName)
+                    }
+                    helperText={touched.firstName && errors.firstName}
+                    sx={{ gridColumn: "span 2" }}
+                  />
+                  {/* ---- First Name ----  */}
 
-                {/* ++++ Last Name ++++ */}
-                <TextField
-                  label="last Name"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.lastName}
-                  name="lastName"
-                  error={Boolean(touched.lastName) && Boolean(errors.lastName)}
-                  helperText={touched.lastName && errors.lastName}
-                  sx={{ gridColumn: "span 2" }}
-                />
-                {/* ---- Last Name ----  */}
+                  {/* ++++ Last Name ++++ */}
+                  <TextField
+                    label="last Name"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.lastName}
+                    name="lastName"
+                    error={
+                      Boolean(touched.lastName) && Boolean(errors.lastName)
+                    }
+                    helperText={touched.lastName && errors.lastName}
+                    sx={{ gridColumn: "span 2" }}
+                  />
+                  {/* ---- Last Name ----  */}
 
-                {/* ++++ Location ++++ */}
-                <TextField
-                  label="location"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.location}
-                  name="location"
-                  error={Boolean(touched.location) && Boolean(errors.location)}
-                  helperText={touched.location && errors.location}
-                  sx={{ gridColumn: "span 2" }}
-                />
-                {/* ---- Location ----  */}
+                  {/* ++++ Location ++++ */}
+                  <TextField
+                    label="location"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.location}
+                    name="location"
+                    error={
+                      Boolean(touched.location) && Boolean(errors.location)
+                    }
+                    helperText={touched.location && errors.location}
+                    sx={{ gridColumn: "span 2" }}
+                  />
+                  {/* ---- Location ----  */}
 
-                {/* ++++ occupation ++++ */}
-                <TextField
-                  label="occupation"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.occupation}
-                  name="occupation"
-                  error={
-                    Boolean(touched.occupation) && Boolean(errors.occupation)
-                  }
-                  helperText={touched.occupation && errors.occupation}
-                  sx={{ gridColumn: "span 2" }}
-                />
-                {/* ---- occupation ----  */}
+                  {/* ++++ occupation ++++ */}
+                  <TextField
+                    label="occupation"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.occupation}
+                    name="occupation"
+                    error={
+                      Boolean(touched.occupation) && Boolean(errors.occupation)
+                    }
+                    helperText={touched.occupation && errors.occupation}
+                    sx={{ gridColumn: "span 2" }}
+                  />
+                  {/* ---- occupation ----  */}
 
-                <Box
-                  gridColumn="span 4"
-                  border={`1px solid ${palette.neutral.medium}`}
-                  borderRadius="5px"
-                  p="1rem"
-                ></Box>
-              </>
-            )}
-          </Box>
-        </form>
-      )}
+                  {/* ++++ picture ++++ */}
+
+                  <Box
+                    gridColumn="span 4"
+                    border={`1px solid ${palette.neutral.medium}`}
+                    borderRadius="5px"
+                    p="1rem"
+                  >
+                    {console.log(
+                      "values:",
+                      values,
+                      "errors:",
+                      errors,
+                      "touched:",
+                      touched
+                    )}
+                    <Dropzone
+                      acceptedFiles=".jpg, .jpeg, .png"
+                      multiple={false}
+                      onDrop={(acceptedFiles) =>
+                        setFieldValue("picture", acceptedFiles[0])
+                      }
+                    >
+                      {({ getRootProps, getInputProps }) => (
+                        <Box
+                          {...getRootProps()}
+                          border={`2px dashed ${palette.primary.main}`}
+                          p="1rem"
+                          sx={{ "&:hover": { cursor: "pointer" } }}
+                        >
+                          <input {...getInputProps()} name="picture" />
+                          {!values.picture ? (
+                            <p>Add Picture here</p>
+                          ) : (
+                            <FlexBetween>
+                              <Typography>
+                                {values.picture.name} <EditOutlined />
+                              </Typography>
+                            </FlexBetween>
+                          )}
+                        </Box>
+                      )}
+                    </Dropzone>
+                    {/* ++++ Picture Error Message ++++ */}
+                    {pictureError && (
+                      <Typography color="error" textAlign="left">
+                        {pictureError}
+                      </Typography>
+                    )}
+                    {/* ---- Picture Error Message ---- */}
+                  </Box>
+                  {/* ---- picture ----  */}
+
+                  {/* ++++ email ++++ */}
+                  <TextField
+                    label="Email"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.email}
+                    name="email"
+                    error={Boolean(touched.email) && Boolean(errors.email)}
+                    helperText={touched.email && errors.email}
+                    sx={{ gridColumn: "span 2" }}
+                  />
+                  {/* ---- email ----  */}
+
+                  {/* ++++ password ++++ */}
+                  <TextField
+                    label="Password"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.password}
+                    name="password"
+                    error={
+                      Boolean(touched.password) && Boolean(errors.password)
+                    }
+                    helperText={touched.password && errors.password}
+                    sx={{ gridColumn: "span 2" }}
+                  />
+                  {/* ---- password ----  */}
+                </>
+              )}
+            </Box>
+
+            {/* ++++ Submit Buttons ++++ */}
+            <Box>
+              <SubmitButton type="submit" fullWidth>
+                {isLogin ? "LOGIN" : "REGISTER"}
+              </SubmitButton>
+              <AccountQuery
+                onClick={() => {
+                  setPageType(isLogin ? "register" : "login");
+                  resetForm();
+                }}
+              >
+                {isLogin
+                  ? "Don't have an account? Sign Up here."
+                  : "Already have an account? Login here."}
+              </AccountQuery>
+            </Box>
+            {/* ---- Submit Buttons ----  */}
+          </form>
+        );
+      }}
     </Formik>
   );
 };
