@@ -19,6 +19,7 @@ import { FlexBetween } from "../FlexBetween";
 import { registerSchema } from "../Schema/Schema";
 import { loginScheama } from "../Schema/Schema";
 import { Form, Formik } from "formik";
+import { publicRequest } from "../../requestMethod";
 
 const LoginForm = () => {
   const [pageType, setPageType] = useState("register");
@@ -56,7 +57,7 @@ const LoginForm = () => {
   /* ---- <<AccountQuery> starts> startsEnds ---- */
 
   /* ++++ Register data initialization starts ++++ */
-  const initialValuesRegister = {
+  /*   const initialValuesRegister = {
     firstName: "first",
     lastName: "last",
     email: "email@email.com",
@@ -64,8 +65,8 @@ const LoginForm = () => {
     location: "location",
     occupation: "occupation",
     picture: "",
-  };
-  /*   const initialValuesRegister = {
+  }; */
+  const initialValuesRegister = {
     firstName: "",
     lastName: "",
     email: "",
@@ -73,7 +74,7 @@ const LoginForm = () => {
     location: "",
     occupation: "",
     picture: "",
-  }; */
+  };
   /* ---- Register data initialization ends ---- */
 
   /* ++++ Login data initialization starts ++++ */
@@ -85,43 +86,55 @@ const LoginForm = () => {
 
   /* ++++ Handling Register Starts ++++ */
   const register = async (values, onSubmitProps) => {
-    const formData = new FormData();
-    for (let value in values) {
-      formData.append(value, values[value]);
-    }
-    formData.append("picturePath", values.picture.name);
-
-    const savedUserResponse = await fetch(
-      "http://localhost:5001/auth/register",
-      {
-        method: "POST",
-        body: formData,
+    try {
+      const formData = new FormData();
+      for (let value in values) {
+        formData.append(value, values[value]);
       }
-    );
-    const savedUser = await savedUserResponse.json();
-    onSubmitProps.resetForm();
+      formData.append("picturePath", values.picture.name);
 
-    if (savedUser) {
-      setPageType("login");
+      const savedUserResponse = await publicRequest.post(
+        "/auth/register",
+        formData
+      );
+      const savedUser = await savedUserResponse.data;
+      onSubmitProps.resetForm();
+      if (savedUser) {
+        setPageType("login");
+      }
+    } catch (error) {
+      console.error("An error occurred during registration:", error);
+      // Handle the error here, display a message, or perform any necessary actions
     }
   };
+
   /* ---- Handling Register Ends ---- */
 
   /* ++++ Handling Login Starts ++++ */
   const login = async (values, onSubmitProps) => {
-    const loggedInResponse = await fetch("http://localhost:5001/auth/login", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(values),
-    });
+    try {
+      const loggedInResponse = await publicRequest.post("/auth/login", values);
+      const loggedIn = await loggedInResponse.data;
+
+      onSubmitProps.resetForm();
+      if (loggedIn) {
+        dispatch(
+          setLogin({
+            user: loggedIn.user,
+            token: loggedIn.token,
+          })
+        );
+        navigate("/home");
+      }
+    } catch (error) {
+      console.error("An error occurred during login:", error);
+    }
   };
+
   /* ---- Handling Login ends ---- */
 
   /* ++++ Submitting the form Starts ++++  */
   const handleFormSubmit = async (values, onSubmitProps) => {
-    console.log(values);
     if (isLogin) await login(values, onSubmitProps);
     if (isRegister) await register(values, onSubmitProps);
   };
@@ -225,7 +238,6 @@ const LoginForm = () => {
                   {/* ---- occupation ----  */}
 
                   {/* ++++ picture ++++ */}
-
                   <Box
                     gridColumn="span 4"
                     border={`1px solid ${palette.neutral.medium}`}
@@ -276,36 +288,34 @@ const LoginForm = () => {
                     {/* ---- Picture Error Message ---- */}
                   </Box>
                   {/* ---- picture ----  */}
-
-                  {/* ++++ email ++++ */}
-                  <TextField
-                    label="Email"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.email}
-                    name="email"
-                    error={Boolean(touched.email) && Boolean(errors.email)}
-                    helperText={touched.email && errors.email}
-                    sx={{ gridColumn: "span 2" }}
-                  />
-                  {/* ---- email ----  */}
-
-                  {/* ++++ password ++++ */}
-                  <TextField
-                    label="Password"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.password}
-                    name="password"
-                    error={
-                      Boolean(touched.password) && Boolean(errors.password)
-                    }
-                    helperText={touched.password && errors.password}
-                    sx={{ gridColumn: "span 2" }}
-                  />
-                  {/* ---- password ----  */}
                 </>
               )}
+              {/* ++++ email ++++ */}
+              <TextField
+                label="Email"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.email}
+                name="email"
+                error={Boolean(touched.email) && Boolean(errors.email)}
+                helperText={touched.email && errors.email}
+                sx={{ gridColumn: "span 2" }}
+              />
+              {/* ---- email ----  */}
+
+              {/* ++++ password ++++ */}
+              <TextField
+                label="Password"
+                type="password"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.password}
+                name="password"
+                error={Boolean(touched.password) && Boolean(errors.password)}
+                helperText={touched.password && errors.password}
+                sx={{ gridColumn: "span 2" }}
+              />
+              {/* ---- password ----  */}
             </Box>
 
             {/* ++++ Submit Buttons ++++ */}
