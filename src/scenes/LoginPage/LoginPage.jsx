@@ -5,17 +5,20 @@ import Navbar from "../../components/Navbar/Navbar";
 import { Box, Typography, useMediaQuery } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 const LoginPage = () => {
   const theme = useTheme();
   const isWideScreen = useMediaQuery("(min-width: 1000px)");
   const isAuth = Boolean(useSelector((state) => state.token));
+  const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (isAuth) {
       navigate("/home");
     }
-  }, [isAuth]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Box>
@@ -40,7 +43,7 @@ const LoginPage = () => {
         <Typography fontWeight="500" variant="h5" sx={{ mb: "1.5rem" }}>
           Welcome to Sapphire23, the Social Media for Sociopaths!
         </Typography>
-        <LoginForm />
+        <LoginForm location={location} navigate={navigate} />
       </Box>
     </Box>
   );

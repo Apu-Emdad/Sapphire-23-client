@@ -12,11 +12,14 @@ import { createTheme } from "@mui/material/styles";
 import { themeSettings } from "./theme";
 import { token } from "./requestMethod";
 import PrivateRoute from "./components/PrivateRoute";
+import { createBrowserRouter } from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
 
 function App() {
   const mode = useSelector((state) => state.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
   const isAuth = Boolean(useSelector((state) => state.token));
+
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
@@ -24,8 +27,22 @@ function App() {
         <Router>
           <Routes>
             <Route path="/" element={<LoginPage />} />
-            <Route path="/home" element={<HomePage />} />
-            <Route path="/profile/:userId" element={<ProfilePage />} />
+            <Route
+              path="/home"
+              element={
+                <PrivateRoute>
+                  <HomePage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/profile/:userId"
+              element={
+                <PrivateRoute>
+                  <ProfilePage />
+                </PrivateRoute>
+              }
+            />
           </Routes>
         </Router>
       </ThemeProvider>

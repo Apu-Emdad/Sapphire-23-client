@@ -11,22 +11,21 @@ import {
 } from "@mui/material";
 import { EditOutlined } from "@mui/icons-material";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { setLogin } from "../../Redux/Slices/authSlice";
 import Dropzone from "react-dropzone";
 import { FlexBetween } from "../FlexBetween";
 
 import { registerSchema } from "../Schema/Schema";
 import { loginScheama } from "../Schema/Schema";
-import { Form, Formik } from "formik";
+import { Formik } from "formik";
 import { publicRequest } from "../../requestMethod";
 
-const LoginForm = () => {
+const LoginForm = ({ location, navigate }) => {
   const [pageType, setPageType] = useState("register");
   const [pictureError, setPictureError] = useState("");
   const { palette } = useTheme();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+
   const isWideScreen = useMediaQuery("(min-width:600px)");
   const isLogin = pageType === "login";
   const isRegister = pageType === "register";
@@ -111,6 +110,8 @@ const LoginForm = () => {
   /* ---- Handling Register Ends ---- */
 
   /* ++++ Handling Login Starts ++++ */
+  const redirect_uri = location.state.from.pathname || "/login";
+  console.log(redirect_uri);
   const login = async (values, onSubmitProps) => {
     try {
       const loggedInResponse = await publicRequest.post("/auth/login", values);
@@ -124,7 +125,7 @@ const LoginForm = () => {
             token: loggedIn.token,
           })
         );
-        navigate("/home");
+        navigate(redirect_uri);
       }
     } catch (error) {
       console.error("An error occurred during login:", error);
