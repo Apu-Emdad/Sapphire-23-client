@@ -1,11 +1,22 @@
 import { useTheme } from "@emotion/react";
-import React from "react";
+import React, { useEffect } from "react";
 import LoginForm from "../../components/LoginForm/AuthForm";
 import Navbar from "../../components/Navbar/Navbar";
 import { Box, Typography, useMediaQuery } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 const LoginPage = () => {
   const theme = useTheme();
   const isWideScreen = useMediaQuery("(min-width: 1000px)");
+  const isAuth = Boolean(useSelector((state) => state.token));
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate("/home");
+    }
+  }, [isAuth]);
+
   return (
     <Box>
       <Navbar />
