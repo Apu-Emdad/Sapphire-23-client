@@ -5,10 +5,11 @@ import { useLocation } from "react-router-dom";
 const PrivateRoute = ({ children, ...rest }) => {
   const isAuth = Boolean(useSelector((state) => state.token));
   const location = useLocation();
+  console.log("private route locatoin:", location);
   if (isAuth) {
     return children;
   }
-  return <Navigate to="/" replace state={{ from: location }} />;
+  return <Navigate to="/" replace state={{ from: location }} name="abc" />;
 };
 
 export default PrivateRoute;

@@ -23,7 +23,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { setMode, setLogout } from "../../Redux/Slices/authSlice";
 import { useNavigate } from "react-router-dom";
-import { FlexBetween } from "../FlexBetween";
+import { FlexBetween } from "../StyledComponent/FlexBetween";
 
 const Navbar = () => {
   const [isMobile, setIsMobile] = useState(false);

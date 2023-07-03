@@ -13,7 +13,7 @@ import { EditOutlined } from "@mui/icons-material";
 import { useDispatch } from "react-redux";
 import { setLogin } from "../../Redux/Slices/authSlice";
 import Dropzone from "react-dropzone";
-import { FlexBetween } from "../FlexBetween";
+import { FlexBetween } from "../StyledComponent/FlexBetween";
 
 import { registerSchema } from "../Schema/Schema";
 import { loginScheama } from "../Schema/Schema";
@@ -56,15 +56,6 @@ const LoginForm = ({ location, navigate }) => {
   /* ---- <<AccountQuery> starts> startsEnds ---- */
 
   /* ++++ Register data initialization starts ++++ */
-  /*   const initialValuesRegister = {
-    firstName: "first",
-    lastName: "last",
-    email: "email@email.com",
-    password: "password",
-    location: "location",
-    occupation: "occupation",
-    picture: "",
-  }; */
   const initialValuesRegister = {
     firstName: "",
     lastName: "",
@@ -88,9 +79,18 @@ const LoginForm = ({ location, navigate }) => {
     try {
       const formData = new FormData();
       for (let value in values) {
-        formData.append(value, values[value]);
+        if (value === "picture") {
+          const file = values.picture;
+          const fileExtension = file.name.split(".").pop(); // Get the file extension
+          const newFileName = `${Date.now()}_${Math.random()
+            .toString(36)
+            .slice(2, 11)}.${fileExtension}`; // Generate a unique file name
+          formData.append("picturePath", newFileName);
+          formData.append("picture", file, newFileName);
+        } else {
+          formData.append(value, values[value]);
+        }
       }
-      formData.append("picturePath", values.picture.name);
 
       const savedUserResponse = await publicRequest.post(
         "/auth/register",
@@ -103,15 +103,14 @@ const LoginForm = ({ location, navigate }) => {
       }
     } catch (error) {
       console.error("An error occurred during registration:", error);
-      // Handle the error here, display a message, or perform any necessary actions
     }
   };
 
   /* ---- Handling Register Ends ---- */
 
   /* ++++ Handling Login Starts ++++ */
-  const redirect_uri = location.state.from.pathname || "/login";
-  console.log(redirect_uri);
+  const redirect_uri = location.state?.from.pathname || "/login";
+  console.log("authform location:", location);
   const login = async (values, onSubmitProps) => {
     try {
       const loggedInResponse = await publicRequest.post("/auth/login", values);
