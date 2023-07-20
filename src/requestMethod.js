@@ -2,9 +2,10 @@ import axios from "axios";
 export const BASE_URL = "http://localhost:5001/";
 
 export const token = localStorage.getItem("persist:root")
-  ? JSON.parse(localStorage.getItem("persist:root"))?.token
+  ? JSON.parse(JSON.parse(localStorage.getItem("persist:root"))?.token)
   : null;
 
+console.log(token);
 export const publicRequest = axios.create({
   baseURL: BASE_URL,
 });
