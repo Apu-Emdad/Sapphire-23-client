@@ -1,7 +1,7 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./scenes/HomePage/index";
-import ProfilePage from "./scenes/ProfilePage/ProfilePage.jsx";
+import ProfilePage from "./scenes/profilePage/ProfilePage";
 import LoginPage from "./scenes/LoginPage/LoginPage.jsx";
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
