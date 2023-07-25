@@ -2,6 +2,7 @@ import { Box, useMediaQuery } from "@mui/material";
 import { useSelector } from "react-redux";
 import Navbar from "../../components/Navbar/Navbar";
 import UserWidget from "../widgets/UserWidget";
+import MyPostWidget from "../widgets/MyPostWidget";
 
 const HomePage = () => {
   const isWideScreen = useMediaQuery("(min-width:1000px)");
@@ -17,9 +18,21 @@ const HomePage = () => {
         gap="0.5rem"
         justifyContent="space-between"
       >
+        {/*==== UserWidget starts ==== */}
         <Box flexBasis={isWideScreen ? "26%" : undefined}>
           <UserWidget userId={_id} picturePath={picturePath} />
         </Box>
+        {/*==== UserWidget ends ==== */}
+
+        {/*==== MyPostWidget + PostWidget starts ==== */}
+        <Box flexBasis={isWideScreen ? "42%" : undefined}>
+          <MyPostWidget picturePath={picturePath} />
+        </Box>
+        {/*==== MyPostWidget + PostWidget ends ==== */}
+
+        {isWideScreen && (
+          <Box flexBasis={isWideScreen ? "26%" : undefined}>advertise here</Box>
+        )}
       </Box>
     </Box>
   );

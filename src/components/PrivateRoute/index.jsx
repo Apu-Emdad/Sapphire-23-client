@@ -9,7 +9,7 @@ const PrivateRoute = ({ children, ...rest }) => {
   if (isAuth) {
     return children;
   }
-  return <Navigate to="/" replace state={{ from: location }} name="abc" />;
+  return <Navigate to="/" replace state={{ from: location }}/>;
 };
 
 export default PrivateRoute;

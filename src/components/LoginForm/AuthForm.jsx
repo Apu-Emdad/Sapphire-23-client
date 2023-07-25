@@ -79,17 +79,7 @@ const LoginForm = ({ location, navigate }) => {
     try {
       const formData = new FormData();
       for (let value in values) {
-        if (value === "picture") {
-          const file = values.picture;
-          const fileExtension = file.name.split(".").pop(); // Get the file extension
-          const newFileName = `${Date.now()}_${Math.random()
-            .toString(36)
-            .slice(2, 11)}.${fileExtension}`; // Generate a unique file name
-          formData.append("picturePath", newFileName);
-          formData.append("picture", file, newFileName);
-        } else {
-          formData.append(value, values[value]);
-        }
+        formData.append(value, values[value]);
       }
 
       const savedUserResponse = await publicRequest.post(
@@ -109,7 +99,7 @@ const LoginForm = ({ location, navigate }) => {
   /* ---- Handling Register Ends ---- */
 
   /* ++++ Handling Login Starts ++++ */
-  const redirect_uri = location.state?.from.pathname || "/login";
+  const redirect_uri = location.state?.from.pathname || "/home";
   console.log("authform location:", location);
   const login = async (values, onSubmitProps) => {
     try {
@@ -124,6 +114,7 @@ const LoginForm = ({ location, navigate }) => {
             token: loggedIn.token,
           })
         );
+
         navigate(redirect_uri);
       }
     } catch (error) {

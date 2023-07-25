@@ -9,12 +9,10 @@ import UserImage from "../../../components/StyledComponent/UserImage";
 import { FlexBetween } from "../../../components/StyledComponent/FlexBetween";
 import { WidgetWrapper } from "../../../components/StyledComponent/WidgetWrapper";
 
-import { userRequest } from "../../../requestMethod";
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const UserWidget = ({ userId, picturePath }) => {
-  const [user, setUser] = useState(null);
   const { palette } = useTheme();
   const navigate = useNavigate();
 
@@ -22,23 +20,7 @@ const UserWidget = ({ userId, picturePath }) => {
   const medium = palette.neutral.medium;
   const main = palette.neutral.main;
 
-  const getUser = async () => {
-    try {
-      const res = await userRequest.get(`/users/${userId}`);
-      const data = res.data;
-      setUser(data);
-    } catch (err) {
-      console.log(err.message);
-    }
-  };
-
-  useEffect(() => {
-    getUser();
-  }, []);
-
-  if (!user) {
-    return null;
-  }
+  const user = useSelector((state) => state.user);
 
   const {
     firstName,
