@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import Navbar from "../../components/Navbar/Navbar";
 import UserWidget from "../widgets/UserWidget";
 import MyPostWidget from "../widgets/MyPostWidget";
+import PostsWidget from "../widgets/PostsWidget";
 
 const HomePage = () => {
   const isWideScreen = useMediaQuery("(min-width:1000px)");
@@ -27,6 +28,7 @@ const HomePage = () => {
         {/*==== MyPostWidget + PostWidget starts ==== */}
         <Box flexBasis={isWideScreen ? "42%" : undefined}>
           <MyPostWidget picturePath={picturePath} />
+          <PostsWidget userId={_id} />
         </Box>
         {/*==== MyPostWidget + PostWidget ends ==== */}
 
