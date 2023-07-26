@@ -12,13 +12,13 @@ const PostsWidget = ({ userId, isProfile = false }) => {
   const getPosts = async () => {
     const res = await userRequest.get("/posts");
     console.log("all Posts", res.data);
-    dispatch(setPosts(res.data));
+    dispatch(setPosts({ posts: res.data }));
   };
 
   const getUserPosts = async () => {
     const res = await userRequest.get(`/${userId}/posts`);
     console.log("user Post", res.data);
-    dispatch(setPosts(res.data));
+    dispatch(setPosts({ posts: res.data }));
   };
 
   useEffect(() => {
@@ -27,7 +27,8 @@ const PostsWidget = ({ userId, isProfile = false }) => {
     } else {
       getPosts();
     }
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isProfile]);
 
   return (
     <>
