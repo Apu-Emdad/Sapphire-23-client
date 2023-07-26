@@ -7,17 +7,14 @@ import { userRequest } from "../../../requestMethod";
 const PostsWidget = ({ userId, isProfile = false }) => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
-  console.log("posts", posts);
 
   const getPosts = async () => {
     const res = await userRequest.get("/posts");
-    console.log("all Posts", res.data);
     dispatch(setPosts({ posts: res.data }));
   };
 
   const getUserPosts = async () => {
     const res = await userRequest.get(`/${userId}/posts`);
-    console.log("user Post", res.data);
     dispatch(setPosts({ posts: res.data }));
   };
 
