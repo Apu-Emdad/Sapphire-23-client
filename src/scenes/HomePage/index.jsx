@@ -4,6 +4,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import UserWidget from "../widgets/UserWidget";
 import MyPostWidget from "../widgets/MyPostWidget";
 import PostsWidget from "../widgets/PostsWidget";
+import AdvertWidget from "../widgets/AdvertWidget/AdvertWidget";
 
 const HomePage = () => {
   const isWideScreen = useMediaQuery("(min-width:1000px)");
@@ -32,9 +33,13 @@ const HomePage = () => {
         </Box>
         {/*==== MyPostWidget + PostWidget ends ==== */}
 
+        {/* ++++ Advertise and FriendList ++++ */}
         {isWideScreen && (
-          <Box flexBasis={isWideScreen ? "26%" : undefined}>advertise here</Box>
+          <Box flexBasis={isWideScreen ? "26%" : undefined}>
+            <AdvertWidget />
+          </Box>
         )}
+        {/*---- Advertise and FriendList ----  */}
       </Box>
     </Box>
   );
