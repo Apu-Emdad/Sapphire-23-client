@@ -1,7 +1,6 @@
 import { useTheme } from "@emotion/react";
 import React, { useEffect } from "react";
 import LoginForm from "../../components/LoginForm/AuthForm";
-import Navbar from "../../components/Navbar/Navbar";
 import { Box, Typography, useMediaQuery } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -22,7 +21,6 @@ const LoginPage = () => {
 
   return (
     <Box>
-      <Navbar />
       <Box
         width="100%"
         backgroundColor={theme.palette.background.alt}
