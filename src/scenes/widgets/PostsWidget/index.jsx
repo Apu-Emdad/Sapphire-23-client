@@ -14,7 +14,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
   };
 
   const getUserPosts = async () => {
-    const res = await userRequest.get(`/${userId}/posts`);
+    const res = await userRequest.get(`posts/${userId}/posts`);
     dispatch(setPosts({ posts: res.data }));
   };
 
@@ -54,6 +54,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
               userPicturePath={userPicturePath}
               likes={likes}
               comments={comments}
+              isProfile={isProfile}
             />
           )
         )}

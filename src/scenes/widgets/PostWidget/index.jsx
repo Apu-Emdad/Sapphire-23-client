@@ -25,6 +25,7 @@ const PostWidget = ({
   userPicturePath,
   likes,
   comments,
+  isProfile,
 }) => {
   const [isComments, setIsComments] = useState(false);
   const dispatch = useDispatch();
@@ -43,8 +44,10 @@ const PostWidget = ({
     dispatch(setPost({ post: updatedPost }));
   };
 
+  console.log("isProfile:", isProfile);
+
   return (
-    <WidgetWrapper m="2rem 0">
+    <WidgetWrapper m={isProfile ? "0 0 2rem 0" : "2rem 0"}>
       <Friend
         friendId={postUserId}
         name={name}

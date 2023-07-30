@@ -16,7 +16,7 @@ const FriendListWidget = ({ userId }) => {
   const getFriends = async () => {
     const res = await userRequest.get(`/users/${userId}/friends`);
     const data = await res.data;
-    setFriends(...data);
+    setFriends(data);
   };
 
   useEffect(() => {

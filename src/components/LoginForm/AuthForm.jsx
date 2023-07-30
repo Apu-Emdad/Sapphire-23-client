@@ -115,7 +115,7 @@ const LoginForm = ({ location, navigate }) => {
           })
         );
 
-        navigate(redirect_uri);
+        // navigate(redirect_uri);
       }
     } catch (error) {
       console.error("An error occurred during login:", error);

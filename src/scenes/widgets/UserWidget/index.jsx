@@ -8,19 +8,23 @@ import { Box, Typography, Divider, useTheme } from "@mui/material";
 import UserImage from "../../../components/StyledComponent/UserImage";
 import { FlexBetween } from "../../../components/StyledComponent/FlexBetween";
 import { WidgetWrapper } from "../../../components/StyledComponent/WidgetWrapper";
-
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
-const UserWidget = ({ userId, picturePath }) => {
+const UserWidget = ({ userId, picturePath, userProfile }) => {
+  const [user, setUser] = useState({});
   const { palette } = useTheme();
   const navigate = useNavigate();
-
   const dark = palette.neutral.dark;
   const medium = palette.neutral.medium;
   const main = palette.neutral.main;
 
-  const user = useSelector((state) => state.user);
+  const loggedInUser = useSelector((state) => state.user);
+
+  useEffect(() => {
+    !userProfile ? setUser(loggedInUser) : setUser(userProfile);
+  }, [loggedInUser, userProfile]);
 
   const {
     firstName,
@@ -56,7 +60,7 @@ const UserWidget = ({ userId, picturePath }) => {
             >
               {firstName} {lastName}
             </Typography>
-            <Typography color={medium}>{friends.length} friends</Typography>
+            <Typography color={medium}>{friends?.length} friends</Typography>
           </Box>
         </FlexBetween>
         <ManageAccountsOutlined />
