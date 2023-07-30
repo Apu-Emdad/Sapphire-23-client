@@ -22,8 +22,6 @@ const Friend = ({ friendId, name, location, userPicturePath }) => {
   const isFriend = friends.find((friend) => friend._id === friendId);
   const isUser = friendId === _id;
 
-  console.log("isUser?", isUser);
-
   const patchFriend = async () => {
     const res = await userRequest.patch(`/users/${_id}/${friendId}`);
     const data = await res.data;
