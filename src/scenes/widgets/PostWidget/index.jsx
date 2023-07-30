@@ -44,8 +44,6 @@ const PostWidget = ({
     dispatch(setPost({ post: updatedPost }));
   };
 
-  console.log("isProfile:", isProfile);
-
   return (
     <WidgetWrapper m={isProfile ? "0 0 2rem 0" : "2rem 0"}>
       <Friend

@@ -2,7 +2,6 @@ import { Box } from "@mui/material";
 import { BASE_URL, publicRequest } from "../../requestMethod";
 
 const UserImage = ({ image, size = "60px", alignSelf = "center" }) => {
-  console.log("image", image);
   return (
     <Box width={size} height={size} alignSelf={alignSelf}>
       <img

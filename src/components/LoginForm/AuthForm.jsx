@@ -100,7 +100,6 @@ const LoginForm = ({ location, navigate }) => {
 
   /* ++++ Handling Login Starts ++++ */
   const redirect_uri = location.state?.from.pathname || "/home";
-  console.log("authform location:", location);
   const login = async (values, onSubmitProps) => {
     try {
       const loggedInResponse = await publicRequest.post("/auth/login", values);
@@ -235,14 +234,6 @@ const LoginForm = ({ location, navigate }) => {
                     borderRadius="5px"
                     p="1rem"
                   >
-                    {console.log(
-                      "values:",
-                      values,
-                      "errors:",
-                      errors,
-                      "touched:",
-                      touched
-                    )}
                     <Dropzone
                       acceptedFiles=".jpg, .jpeg, .png"
                       multiple={false}

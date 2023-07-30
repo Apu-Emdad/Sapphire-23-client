@@ -16,7 +16,6 @@ const ProfilePage = () => {
 
   const loggedInUser = useSelector((state) => state.user);
   const isUser = loggedInUser._id === userId;
-  console.log("isUser:", isUser);
 
   const getUser = async () => {
     const res = await userRequest.get(`/users/${userId}`);
