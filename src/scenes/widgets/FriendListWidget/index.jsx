@@ -2,7 +2,7 @@ import { Box, Typography, useTheme } from "@mui/material";
 import { WidgetWrapper } from "../../../components/StyledComponent/WidgetWrapper";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { setFriends } from "../../../Redux/Slices/authSlice";
+import { setFriends as setUsersFriends } from "../../../Redux/Slices/authSlice";
 import { userRequest } from "../../../requestMethod";
 
 import Friend from "../../../components/Friend";
@@ -16,17 +16,20 @@ const FriendListWidget = ({ userId }) => {
   const getFriends = async () => {
     const res = await userRequest.get(`/users/${userId}/friends`);
     const data = await res.data;
-    setFriends(data);
+    if (user._id === userId) {
+      dispatch(setUsersFriends({ friends: data }));
+      setFriends(data);
+    } else {
+      setFriends(data);
+    }
   };
 
   useEffect(() => {
-    if (user._id === userId) {
-      setFriends(user.friends);
-    } else {
-      getFriends();
-    }
+    getFriends();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, userId]);
+
+  console.log("friends", friends);
 
   return (
     <WidgetWrapper>
