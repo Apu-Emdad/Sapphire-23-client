@@ -6,6 +6,7 @@ import { userRequest } from "../../requestMethod";
 import { setFriends } from "../../Redux/Slices/authSlice";
 import { FlexBetween } from "../StyledComponent/FlexBetween";
 import UserImage from "../StyledComponent/UserImage";
+import { setLoading } from "../../Redux/Slices/authSlice";
 
 const Friend = ({ friendId, name, location, userPicturePath }) => {
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ const Friend = ({ friendId, name, location, userPicturePath }) => {
     const res = await userRequest.patch(`/users/${_id}/${friendId}`);
     const data = await res.data;
     dispatch(setFriends({ friends: data }));
+    dispatch(setLoading(true));
   };
 
   return (
