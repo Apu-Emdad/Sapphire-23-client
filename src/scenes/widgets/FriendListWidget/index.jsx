@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setFriends as setUsersFriends } from "../../../Redux/Slices/authSlice";
 import { userRequest } from "../../../requestMethod";
+import { setLoading } from "../../../Redux/Slices/authSlice";
 
 import Friend from "../../../components/Friend";
 
@@ -11,24 +12,34 @@ const FriendListWidget = ({ userId }) => {
   const dispatch = useDispatch();
   const { palette } = useTheme();
   const [friends, setFriends] = useState([]);
+  const loading = useSelector((state) => state.loading);
+  // const [loading, setLoading] = useState(false);
   const user = useSelector((state) => state.user);
 
   const getFriends = async () => {
-    const res = await userRequest.get(`/users/${userId}/friends`);
-    const data = await res.data;
-    if (user._id === userId) {
-      dispatch(setUsersFriends({ friends: data }));
+    try {
+      const res = await userRequest.get(`/users/${userId}/friends`);
+      const data = await res.data;
       setFriends(data);
-    } else {
-      setFriends(data);
+      dispatch(setLoading(false));
+    } catch (error) {
+      console.error("Error fetching friends:", error);
+      dispatch(setLoading(false));
     }
   };
 
   useEffect(() => {
     getFriends();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, userId]);
+  }, [userId, loading, dispatch]);
 
+  useEffect(() => {
+    if (user._id === userId) {
+      dispatch(setUsersFriends({ friends: friends }));
+    }
+  }, [dispatch, friends, user._id, userId]);
+
+  console.log("loading", loading);
   console.log("friends", friends);
 
   return (
