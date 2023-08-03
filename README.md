@@ -1,72 +1,26 @@
-# Getting Started with Create React App
+# Sapphire23
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Sapphire23 is a social media platform that allows users to create profiles, share content, and
+interact with other users.
 
-## Available Scripts
+|                                                    |                                                                   |                                                                   |
+| -------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- |
+| [Live](https://sapphire-23-client.vercel.app/home) | [Github(client)](https://github.com/Apu-Emdad/Sapphire-23-client) | [Github(client)](https://github.com/Apu-Emdad/Sapphire-23-client) |
 
-In the project directory, you can run:
+- Visitor email: visitor@visitor.com
+- Password: 123456
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Authentication System:** The project includes a Redux-toolkit based authentication system that allows users to sign up, log in, and log out. Users can securely manage their accounts and passwords.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Profile Picture Upload:** Users have the ability to upload and manage their profile pictures.
 
-### `npm test`
+- **Posts and Likes:** Users can create, upload pictures, and manage their posts. They can also like/unlike posts.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Friends Network:** The application allows users to connect with each other, making friends within the platform.
 
-### `npm run build`
+- **Theme Switching:** Users have the option to toggle between light and dark themes, based on their preferences.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject` 
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-
+**Technologies:** React JS, Material UI, React-Dropzone, Redux-Toolkit, Redux-Persist, Formik, Axios,
+Express JS, JWT, Multer, MongoDB, Mongoose, Bcrypt, Body-Parser
