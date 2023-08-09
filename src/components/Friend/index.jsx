@@ -24,6 +24,8 @@ const Friend = ({ friendId, name, location, userPicturePath }) => {
   const isUser = friendId === _id;
 
   const patchFriend = async () => {
+    alert('Visitors are currently prohibited to make any changes. I appreciate your visits. Thank You!')
+    return;
     const res = await userRequest.patch(`/users/${_id}/${friendId}`);
     const data = await res.data;
     dispatch(setFriends({ friends: data }));

@@ -46,7 +46,7 @@ const Navbar = () => {
       <FlexBetween
         padding="1rem 6%"
         backgroundColor={alt}
-        sx={{ position: "fixed", width: "100%" }}
+        sx={{ position: "fixed", width: "100%", zIndex: 9999 }}
       >
         <FlexBetween gap="1.75rem">
           <Typography

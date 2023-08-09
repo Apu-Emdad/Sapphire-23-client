@@ -42,6 +42,8 @@ const MyPostWidget = ({ picturePath }) => {
   const medium = palette.neutral.medium;
 
   const handlePost = async () => {
+    alert('Visitors are currently prohibited to make any changes. I appreciate your visits. Thank You!')
+    return;
     const formData = new FormData();
     formData.append("userId", _id);
     formData.append("description", post);

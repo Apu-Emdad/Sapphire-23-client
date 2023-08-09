@@ -37,6 +37,8 @@ const PostWidget = ({
   const primary = palette.primary.main;
 
   const patchLike = async () => {
+    alert('Visitors are currently prohibited to make any changes. I appreciate your visits. Thank You!')
+    return;
     const res = await userRequest.patch(`posts/${postId}/like`, {
       userId: loggedInUserId,
     });
