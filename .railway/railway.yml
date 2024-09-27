@@ -1,0 +1,5 @@
+name: sapphire-23
+build:
+  commands:
+    - npm install
+    - npm run build
